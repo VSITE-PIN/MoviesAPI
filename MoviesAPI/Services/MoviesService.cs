@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using MoviesAPI.Data;
 using System;
 
@@ -11,8 +12,16 @@ namespace MoviesAPI.Services
         {
             _context = context;
         }
-
-        public object AppDbcontext { get; private set; }
+		public async Task<List<Movie>> GetMoviesAsync()
+		{
+            return await _context.Movies.ToListAsync();
+        }
+        public async Task<List<Movie>> GetMoviesAsync(int Id)
+        {
+            return await _context.Movies.ToListAsync();
+        }
+	
+		public object AppDbcontext { get; private set; }
 
         public void AddMovie(Movie movie)
         {
@@ -30,8 +39,8 @@ namespace MoviesAPI.Services
                 MovieAdded = movie.MovieAdded,
                 MovieDeleted = movie.MovieDeleted,
             };
-             _context.Movies.Add(newMovie);
-             _context.SaveChanges();
+            _context.Movies.Add(newMovie);
+            _context.SaveChanges();
         }
     }
 }
