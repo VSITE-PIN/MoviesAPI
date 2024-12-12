@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MoviesAPI.Data;
+using MoviesAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString(name: "MovieContext")
  ?? throw new InvalidOperationException("Connection string MovieContext not found.")));
 var app = builder.Build();
+
+builder.Services.AddScoped<MovieService>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
