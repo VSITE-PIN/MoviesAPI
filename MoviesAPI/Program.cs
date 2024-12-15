@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MoviesAPI.Data;
 using MoviesAPI.Service;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
