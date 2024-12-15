@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MoviesAPI.Services;
 using MoviesAPI.ModelView;
-using System Diagnostics.Mertics;
+using System.Diagnostics.Metrics;
 
 namespace MoviesAPI.Controllers
 {
