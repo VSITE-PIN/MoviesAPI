@@ -1,5 +1,4 @@
 ﻿using MoviesAPI.Data;
-using MoviesAPI.ViewModels;
 
 namespace MoviesAPI.Services
 {
@@ -20,6 +19,17 @@ namespace MoviesAPI.Services
             };
             _context.Movies.Add(newMovie);
             _context.SaveChanges();
+            foreach (var id in movie.DirectorIds)
+            {
+                var moviedirector = new MovieDirector()
+                {
+                    MovieId = newMovie.Id,
+                    DirectorId = id
+                };
+                _context.MovieDirectors.Add(moviedirector);
+            }
+            _context.SaveChanges();
+
         }
         public List<Movie> GetAllMovies()
         {
@@ -48,4 +58,5 @@ namespace MoviesAPI.Services
         }
 
     }
+
 }

@@ -9,6 +9,9 @@ public class AppDbContext : DbContext
     public DbSet<Movie> Movies { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
 
+    public DbSet<Director> Directors{ get; set; }
+    public DbSet<MovieDirector> MovieDirectors { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

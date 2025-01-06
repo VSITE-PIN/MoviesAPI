@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MoviesAPI.Data;
 using MoviesAPI.Services;
-using MoviesAPI.ViewModels;
 
 namespace MoviesAPI.Controllers
 {
