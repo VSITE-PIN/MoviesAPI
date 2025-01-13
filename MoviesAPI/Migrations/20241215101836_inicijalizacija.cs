@@ -5,7 +5,7 @@
 namespace MoviesAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class stvaranje_Movies : Migration
+    public partial class inicijalizacija : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

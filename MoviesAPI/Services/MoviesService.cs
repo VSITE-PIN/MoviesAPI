@@ -1,4 +1,5 @@
-﻿using MoviesAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MoviesAPI.Data;
 
 namespace MoviesAPI.Services
 {
@@ -11,43 +12,73 @@ namespace MoviesAPI.Services
 			_context = context;
 		}
 
-		public void AddMovie(Movie movie)
+		public async Task<List<Movie>> GetAllAsync()
 		{
-			_context.Movies.Add(movie);
-			_context.SaveChanges();
+			return await _context.Movies.ToListAsync();
 		}
 
-		public Movie? GetMovieById(int id)
+		public async Task<Movie?> GetByIdAsync(int id)
 		{
-			return _context.Movies.FirstOrDefault(m => m.Id == id);
+			return await _context.Movies.FindAsync(id);
 		}
 
-		public void UpdateMovie(Movie movie)
+		public async Task<Movie> AddAsync(MovieVM movie)
 		{
-			var existingMovie = GetMovieById(movie.Id);
+			if (string.IsNullOrWhiteSpace(movie.Name))
+			{
+				throw new ArgumentException("Movie name cannot be empty");
+			}
+
+			var newMovie = new Movie()
+			{
+				Name = movie.Name,
+				Year = movie.Year,
+				Genre = movie.Genre,
+			};
+
+			await _context.Movies.AddAsync(newMovie);
+			await _context.SaveChangesAsync();
+
+			return newMovie;
+		}
+
+		public async Task UpdateAsync(int id, MovieVM movie)
+		{
+			var existingMovie = await GetByIdAsync(id);
+
 			if (existingMovie == null)
 			{
-				throw new KeyNotFoundException($"Movie with ID {movie.Id} not found.");
+				throw new KeyNotFoundException("Movie not found");
 			}
 
 			existingMovie.Name = movie.Name;
-			existingMovie.Genre = movie.Genre;
 			existingMovie.Year = movie.Year;
+			existingMovie.Genre = movie.Genre;
 
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 		}
 
-		public void DeleteMovie(int id)
+		public async Task DeleteAsync(int id)
 		{
-			var movie = GetMovieById(id);
+			var movie = await GetByIdAsync(id);
 			if (movie == null)
 			{
-				throw new KeyNotFoundException($"Movie with ID {id} not found.");
+				throw new KeyNotFoundException("Movie not found");
 			}
 
 			_context.Movies.Remove(movie);
-			_context.SaveChanges();
+			await _context.SaveChangesAsync();
 		}
+
+		internal void AddAsync(Movie movie)
+		{
+			throw new NotImplementedException();
+		}
+
+		internal void UpdateAsync(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 	}
 }
-

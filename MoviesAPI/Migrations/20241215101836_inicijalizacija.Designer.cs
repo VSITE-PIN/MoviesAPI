@@ -11,8 +11,8 @@ using MoviesAPI.Data;
 namespace MoviesAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241212131144_stvaranje_Movies")]
-    partial class stvaranje_Movies
+    [Migration("20241215101836_inicijalizacija")]
+    partial class inicijalizacija
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
